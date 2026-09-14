@@ -29,7 +29,7 @@ if prompt := st.chat_input("Escribe tu mensaje..."):
         st.markdown(prompt)
 
     respuesta = client.chat.completions.create(
-        model="Qwen/Qwen2.5-72B-Instruct",
+        model="HuggingFaceTB/SmolLM3-3B",
         messages=[
             {"role": "system",
              "content": "Eres Carlos, un tutor virtual amable."}
