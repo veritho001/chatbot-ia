@@ -7,10 +7,8 @@ from huggingface_hub import InferenceClient
 load_dotenv()
 
 client = InferenceClient(
-    provider="hf-inference",
     api_key=os.getenv("HF_TOKEN")
 )
-
 st.title("Carlos tu tutor virtual")
 
 if "messages" not in st.session_state:
@@ -28,9 +26,8 @@ if prompt := st.chat_input("Escribe tu mensaje..."):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    respuesta = client.chat.completions.create(
-        model="HuggingFaceTB/SmolLM3-3B",
-        messages=[
+   respuesta = client.chat.completions.create(
+    messages=[
             {"role": "system",
              "content": "Eres Carlos, un tutor virtual amable."}
         ] + st.session_state.messages,
