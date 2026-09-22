@@ -14,18 +14,10 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-.main{
-    padding-top:1rem;
-}
-.block-container{
-    max-width:900px;
-}
-h1{
-    text-align:center;
-}
-.stSidebar{
-    background:#f8f9fa;
-}
+.main{padding-top:1rem;}
+.block-container{max-width:900px;}
+h1{text-align:center;}
+.stSidebar{background:#f8f9fa;}
 .tema{
     background:#eef3ff;
     padding:8px;
@@ -43,10 +35,10 @@ h1{
 # ================= ESTADO =================
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages=[]
 
 if "contador" not in st.session_state:
-    st.session_state.contador = 0
+    st.session_state.contador=0
 
 # ================= BARRA LATERAL =================
 
@@ -60,82 +52,79 @@ with st.sidebar:
 
     st.markdown("---")
 
-    st.markdown("### 📚 Temas de Informática")
+    st.markdown("## 💻 Informática")
 
-    temas = [
-        "Python",
-        "Streamlit",
-        "HTML",
-        "CSS",
-        "Java",
-        "SQL",
-        "Git",
-        "GitHub",
-        "Redes",
-        "Ciberseguridad",
-        "Base de Datos",
-        "Algoritmos",
-        "Inteligencia Artificial"
+    temas=[
+        "Python","Streamlit","HTML","CSS","Java",
+        "SQL","Git","GitHub","Redes",
+        "Ciberseguridad","Base de Datos",
+        "Algoritmos","Inteligencia Artificial"
     ]
 
     for t in temas:
-        st.markdown(f"<div class='tema'>📘 {t}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='tema'>📘 {t}</div>",unsafe_allow_html=True)
 
     st.markdown("---")
 
-    st.markdown("### 🩺 Primeros Auxilios")
+    st.markdown("## 🩺 Salud")
 
     st.markdown("""
-    Preguntas disponibles:
+    **Puedes preguntar:**
 
     - Me duele la cabeza
     - Me duele el estómago
     - Tengo fiebre
     - Tengo tos
     - Tengo dolor de garganta
-    - Me siento mareado
-    - Tengo náuseas
+    - Tengo diarrea
+    - Tengo ansiedad
+    - Tengo presión alta
     - Me hice una cortadura
     - Tengo una quemadura
+    - No puedo respirar
     """)
 
     st.markdown("---")
 
-    if st.button("🗑️ Limpiar conversación", use_container_width=True):
-        st.session_state.messages = []
-        st.session_state.contador = 0
+    if st.button("🗑️ Limpiar conversación",use_container_width=True):
+        st.session_state.messages=[]
+        st.session_state.contador=0
         st.rerun()
 
 # ================= ENCABEZADO =================
 
 st.title("🤖 Carlos Tutor Virtual 2.0")
-st.caption("Asistente de informática y orientación básica de primeros auxilios.")
+st.caption("Asistente de informática y orientación básica de salud.")
 
 st.info(
-    "Puedes preguntarme sobre programación, redes, bases de datos o recibir orientación básica sobre algunos síntomas comunes."
+    "Puedo responder preguntas sobre programación, tecnología y brindar orientación básica sobre síntomas comunes."
 )
 
 # ================= BOTONES RÁPIDOS =================
 
 st.markdown("### Preguntas rápidas")
 
-col1, col2, col3 = st.columns(3)
+c1,c2,c3,c4=st.columns(4)
 
-pregunta = None
+pregunta=None
 
-with col1:
+with c1:
     if st.button("🐍 Python"):
-        pregunta = "¿Qué es Python?"
+        pregunta="¿Qué es Python?"
 
-with col2:
+with c2:
     if st.button("💻 Git"):
-        pregunta = "¿Qué es Git?"
+        pregunta="¿Qué es Git?"
 
-with col3:
-    if st.button("🩺 Dolor de cabeza"):
-        pregunta = "Me duele la cabeza"
+with c3:
+    if st.button("🤕 Cabeza"):
+        pregunta="Me duele la cabeza"
 
-# ================= MOSTRAR HISTORIAL =================
+with c4:
+    if st.button("🌡️ Fiebre"):
+        pregunta="Tengo fiebre"
+
+# ================= HISTORIAL =================
 
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
@@ -147,131 +136,49 @@ for msg in st.session_state.messages:
 
 def responder(texto):
 
-    t = texto.lower()
-    emergencia = False
+    t=texto.lower()
+    emergencia=False
 
-    respuestas = {
+    # -------- Informática --------
 
-        "hola":
-        "¡Hola! Soy Carlos, tu tutor virtual. ¿En qué puedo ayudarte?",
+    info={
 
-        "python":
-        "Python es un lenguaje de programación muy utilizado para desarrollar aplicaciones, automatizar tareas, crear inteligencia artificial y analizar datos.",
+        "hola":"¡Hola! Soy Carlos, tu tutor virtual. ¿En qué puedo ayudarte?",
 
-        "streamlit":
-        "Streamlit es un framework de Python que permite crear aplicaciones web interactivas sin necesidad de programar HTML.",
+        "python":"Python es un lenguaje de programación utilizado para crear aplicaciones, automatizar tareas, desarrollar inteligencia artificial y analizar datos.",
 
-        "html":
-        "HTML es el lenguaje que define la estructura de una página web mediante etiquetas.",
+        "streamlit":"Streamlit permite crear aplicaciones web interactivas usando Python de forma sencilla.",
 
-        "css":
-        "CSS sirve para dar estilo a una página web modificando colores, fuentes y distribución.",
+        "html":"HTML define la estructura de una página web mediante etiquetas.",
 
-        "java":
-        "Java es un lenguaje orientado a objetos ampliamente utilizado en aplicaciones empresariales y Android.",
+        "css":"CSS permite dar estilo a una página web.",
 
-        "sql":
-        "SQL permite crear, consultar y modificar bases de datos.",
+        "java":"Java es un lenguaje orientado a objetos utilizado en aplicaciones empresariales y Android.",
 
-        "base de datos":
-        "Una base de datos organiza información para almacenarla y consultarla de forma eficiente.",
+        "sql":"SQL permite consultar y administrar bases de datos.",
 
-        "redes":
-        "Las redes informáticas permiten que varios dispositivos compartan información y recursos.",
+        "git":"Git es un sistema de control de versiones.",
 
-        "ciberseguridad":
-        "La ciberseguridad protege sistemas, redes y datos contra accesos no autorizados y ataques informáticos.",
+        "github":"GitHub es una plataforma para almacenar repositorios Git y colaborar en proyectos.",
 
-        "algoritmo":
-        "Un algoritmo es una secuencia ordenada de pasos para resolver un problema.",
+        "algoritmo":"Un algoritmo es una secuencia ordenada de pasos para resolver un problema.",
 
-        "programación":
-        "La programación consiste en crear instrucciones para que una computadora realice tareas específicas.",
+        "base de datos":"Una base de datos organiza información para almacenarla y consultarla eficientemente.",
 
-        "git":
-        "Git es un sistema de control de versiones que registra los cambios realizados en un proyecto.",
+        "redes":"Las redes permiten la comunicación entre dispositivos mediante protocolos.",
 
-        "github":
-        "GitHub es una plataforma para almacenar repositorios Git y colaborar con otros desarrolladores.",
+        "ciberseguridad":"La ciberseguridad protege sistemas y datos frente a ataques.",
 
-        "inteligencia artificial":
-        "La inteligencia artificial desarrolla sistemas capaces de aprender, analizar información y tomar decisiones basadas en datos."
+        "inteligencia artificial":"La inteligencia artificial desarrolla sistemas capaces de aprender y tomar decisiones utilizando datos."
     }
 
-    for palabra, respuesta in respuestas.items():
+    for palabra,respuesta in info.items():
         if palabra in t:
-            return respuesta, emergencia
+            return respuesta,False
 
-    # ================= PRIMEROS AUXILIOS =================
+    # -------- Emergencias --------
 
-    if "me duele la cabeza" in t or "dolor de cabeza" in t or "migraña" in t:
-        return (
-            "🩺 Un dolor de cabeza puede estar relacionado con estrés, deshidratación o falta de descanso. "
-            "Descansa, toma agua y evita esfuerzos innecesarios. "
-            "Si aparece de forma repentina e intensa, junto con dificultad para hablar, pérdida de fuerza o confusión, busca atención médica urgente.",
-            False
-        )
-
-    if "me duele el estómago" in t or "dolor de estómago" in t:
-        return (
-            "🩺 El dolor de estómago puede tener diferentes causas. Mantente hidratado y evita alimentos pesados. "
-            "Si el dolor es muy intenso, hay sangre, fiebre alta o el abdomen está muy rígido, busca atención médica urgente.",
-            False
-        )
-
-    if "fiebre" in t:
-        return (
-            "🌡️ Descansa, toma líquidos y controla tu temperatura. "
-            "Si supera los 39°C, dura varios días o aparece con dificultad para respirar, busca atención médica.",
-            False
-        )
-
-    if "tos" in t:
-        return (
-            "😷 Mantente hidratado y observa tu evolución. "
-            "Si aparece dificultad para respirar, dolor intenso en el pecho o sangre al toser, busca atención médica.",
-            False
-        )
-
-    if "dolor de garganta" in t:
-        return (
-            "🫖 Puedes aliviar el dolor tomando líquidos tibios y descansando. "
-            "Si tienes dificultad para respirar o no puedes tragar saliva, busca atención médica.",
-            False
-        )
-
-    if "mareo" in t or "mareado" in t:
-        return (
-            "🩺 Siéntate o recuéstate y evita levantarte rápidamente. "
-            "Si el mareo provoca desmayo o viene acompañado de dificultad para hablar o mover una parte del cuerpo, busca ayuda urgente.",
-            False
-        )
-
-    if "náusea" in t or "nausea" in t or "vómito" in t or "vomito" in t:
-        return (
-            "🤢 Mantente hidratado con pequeños sorbos de agua. "
-            "Si el vómito contiene sangre, es persistente o hay signos de deshidratación intensa, busca atención médica.",
-            False
-        )
-
-    if "cortadura" in t or "corte" in t:
-        return (
-            "🩹 Lava la herida con agua limpia, presiona con una gasa para detener el sangrado y cúbrela con un apósito limpio. "
-            "Si la herida es profunda o el sangrado no se detiene, busca atención médica.",
-            False
-        )
-
-    if "quemadura" in t:
-        return (
-            "🔥 Enfría la quemadura con agua corriente durante unos 20 minutos. "
-            "No apliques hielo directamente ni revientes ampollas. "
-            "Si es extensa o afecta la cara, manos o genitales, busca atención médica.",
-            False
-        )
-
-    # ================= EMERGENCIAS =================
-
-    sintomas_graves = [
+    graves=[
         "no puedo respirar",
         "dificultad para respirar",
         "dolor fuerte en el pecho",
@@ -281,55 +188,166 @@ def responder(texto):
         "inconsciente",
         "hemorragia",
         "sangrado abundante",
-        "accidente grave",
         "no responde",
-        "no puedo mover",
         "parálisis",
-        "paralisis"
+        "paralisis",
+        "accidente grave"
     ]
 
-    for s in sintomas_graves:
+    for s in graves:
         if s in t:
-            emergencia = True
-            return (
-                "🚨 Los síntomas que describes podrían indicar una emergencia médica. "
-                "Busca ayuda inmediatamente y llama al 911 si es seguro hacerlo.",
-                emergencia
+            return(
+                "🚨 Los síntomas que describes podrían indicar una emergencia médica. Busca ayuda inmediata y llama al 911.",
+                True
             )
 
+    # -------- Salud --------
+
+    sintomas={
+
+        ("dolor de cabeza","me duele la cabeza","migraña"):
+        "🤕 El dolor de cabeza puede estar relacionado con estrés, deshidratación o falta de descanso. Descansa, hidrátate y evita el exceso de pantallas. Busca atención urgente si aparece de forma repentina e intensa junto con confusión o dificultad para hablar.",
+
+        ("dolor de estómago","me duele el estómago"):
+        "🩺 Mantente hidratado y evita alimentos pesados. Si el dolor es muy intenso, aparece sangre o fiebre alta, consulta de inmediato.",
+
+        ("fiebre",):
+        "🌡️ Descansa, toma abundantes líquidos y controla la temperatura. Si supera 39°C o dura varios días, consulta con un profesional.",
+
+        ("tos",):
+        "😷 Mantente hidratado y observa si aparece dificultad para respirar o sangre al toser.",
+
+        ("dolor de garganta",):
+        "🍵 Los líquidos tibios pueden aliviar el dolor. Consulta si no puedes tragar saliva o respirar correctamente.",
+
+        ("mareo","mareado"):
+        "💫 Siéntate o recuéstate. Evita levantarte rápidamente. Si aparece desmayo o dificultad para hablar, busca ayuda urgente.",
+
+        ("náusea","nausea","vómito","vomito"):
+        "🤢 Toma pequeños sorbos de agua para evitar la deshidratación. Consulta si el vómito contiene sangre o es persistente.",
+
+        ("diarrea",):
+        "💧 Mantente hidratado con agua o suero oral. Consulta si hay sangre o signos de deshidratación.",
+
+        ("estreñimiento",):
+        "🥗 Incrementa el consumo de fibra, agua y actividad física.",
+
+        ("dolor de espalda",):
+        "🦴 Descansa sin permanecer inmóvil demasiado tiempo y realiza estiramientos suaves.",
+
+        ("dolor de cuello",):
+        "🧘 Evita movimientos bruscos y descansa la zona.",
+
+        ("dolor de rodilla",):
+        "🦵 Descansa la articulación, aplica hielo durante 15-20 minutos y evita sobrecargarla.",
+
+        ("dolor de hombro",):
+        "💪 Descansa el brazo y evita movimientos dolorosos.",
+
+        ("dolor muscular",):
+        "🏃 Descansa, hidrátate y realiza estiramientos suaves.",
+
+        ("calambre",):
+        "🦵 Estira lentamente el músculo afectado y mantente hidratado.",
+
+        ("quemadura",):
+        "🔥 Enfría la quemadura con agua corriente durante unos 20 minutos. No apliques hielo directamente.",
+
+        ("cortadura","corte"):
+        "🩹 Lava la herida con agua limpia, presiona para detener el sangrado y cúbrela con un apósito limpio.",
+
+        ("picadura",):
+        "🐝 Lava la zona y aplica frío local. Busca ayuda si aparece dificultad para respirar.",
+
+        ("alergia",):
+        "🤧 Evita el desencadenante si lo conoces. Busca atención urgente si hay hinchazón en labios o dificultad para respirar.",
+
+        ("resfriado",):
+        "🤒 Descansa, hidrátate y controla los síntomas.",
+
+        ("gripe","influenza"):
+        "😴 Descansa, toma líquidos y consulta si empeora.",
+
+        ("congestión nasal","nariz tapada"):
+        "👃 El lavado nasal con solución salina puede ayudar.",
+
+        ("dolor de oído",):
+        "👂 Evita introducir objetos en el oído y consulta si hay secreción.",
+
+        ("conjuntivitis","ojo rojo"):
+        "👁️ Lávate las manos con frecuencia y evita compartir toallas.",
+
+        ("insomnio",):
+        "🌙 Mantén horarios regulares y reduce el uso de pantallas antes de dormir.",
+
+        ("ansiedad",):
+        "🫁 Practica respiraciones lentas y busca apoyo si interfiere con tu vida diaria.",
+
+        ("estrés",):
+        "🌿 Descansa, organiza tus actividades y realiza actividad física si puedes.",
+
+        ("hipertensión","presión alta"):
+        "❤️ Reduce el consumo de sal y controla tu presión regularmente.",
+
+        ("hipotensión","presión baja"):
+        "💧 Levántate lentamente y mantente hidratado.",
+
+        ("asma",):
+        "🌬️ Sigue el tratamiento indicado por tu médico y busca ayuda urgente si no puedes respirar bien.",
+
+        ("diabetes",):
+        "🩸 Controla tu glucosa siguiendo las indicaciones médicas.",
+
+        ("covid",):
+        "🦠 Descansa, mantente hidratado y sigue las recomendaciones sanitarias vigentes.",
+
+        ("embarazo",):
+        "🤰 Ante síntomas preocupantes durante el embarazo consulta con un profesional.",
+
+        ("deshidratación",):
+        "🚰 Bebe agua o soluciones de rehidratación oral.",
+
+        ("erupción","ronchas"):
+        "🌸 Observa si la erupción empeora y consulta si aparece fiebre alta."
+    }
+
+    for claves,respuesta in sintomas.items():
+        for c in claves:
+            if c in t:
+                return respuesta,False
+
     if "gracias" in t:
-        return "😊 ¡Con gusto! Estoy aquí para ayudarte.", False
+        return "😊 ¡Con gusto! Estoy aquí para ayudarte.",False
 
     if "adiós" in t or "adios" in t or "bye" in t:
-        return "👋 ¡Hasta luego! Fue un gusto ayudarte.", False
+        return "👋 ¡Hasta luego! Fue un gusto ayudarte.",False
 
     if "quién eres" in t or "quien eres" in t:
-        return (
-            "Soy Carlos Tutor Virtual 2.0, un asistente creado con Streamlit para responder preguntas de informática y brindar orientación básica de primeros auxilios.",
+        return(
+            "Soy Carlos Tutor Virtual 2.0, un asistente creado con Streamlit para responder preguntas de informática y brindar orientación básica sobre salud.",
             False
         )
 
     if "cómo estás" in t or "como estas" in t:
-        return "😄 Estoy funcionando correctamente y listo para ayudarte.", False
+        return "😄 Estoy funcionando correctamente y listo para ayudarte.",False
 
-    return (
-        "No encontré una respuesta específica para tu consulta. "
-        "Puedo ayudarte con temas de informática, programación y orientación básica de primeros auxilios.",
+    return(
+        "No encontré una respuesta específica para tu consulta. Puedo ayudarte con informática, programación y orientación básica sobre síntomas comunes.",
         False
     )
 
 # ================= ENTRADA =================
 
-prompt = st.chat_input("Escribe tu pregunta...")
+prompt=st.chat_input("Escribe tu pregunta...")
 
 if pregunta:
-    prompt = pregunta
+    prompt=pregunta
 
-# ================= PROCESAMIENTO =================
+# ================= CHAT =================
 
 if prompt:
 
-    hora = datetime.now().strftime("%H:%M")
+    hora=datetime.now().strftime("%H:%M")
 
     st.session_state.messages.append({
         "role":"user",
@@ -337,13 +355,13 @@ if prompt:
         "hora":hora
     })
 
-    st.session_state.contador += 1
+    st.session_state.contador+=1
 
     with st.chat_message("user"):
         st.markdown(prompt)
         st.caption(hora)
 
-    respuesta, emergencia = responder(prompt)
+    respuesta,emergencia=responder(prompt)
 
     with st.chat_message("assistant"):
 
@@ -355,7 +373,7 @@ if prompt:
 
         if emergencia:
             st.error("🚨 Posible emergencia detectada.")
-            st.link_button("📞 Llamar al 911", "tel:911")
+            st.link_button("📞 Llamar al 911","tel:911")
 
     st.session_state.messages.append({
         "role":"assistant",
@@ -363,7 +381,7 @@ if prompt:
         "hora":hora
     })
 
-    st.session_state.contador += 1
+    st.session_state.contador+=1
 
 # ================= PIE =================
 
